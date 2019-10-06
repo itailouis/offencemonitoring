@@ -55,8 +55,8 @@ include "includes/sidebar.php";
 
               <?php
                             
-                //$id=$_GET['id'];
-                $id='2';
+                $id=$_GET['id'];
+               // $id='2';
 	$result = $db->prepare("SELECT * FROM reported_offence where id= :post_id");
 	$result->bindParam(':post_id', $id);
 	$result->execute();

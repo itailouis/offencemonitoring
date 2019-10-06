@@ -61,7 +61,7 @@ include "includes/sidebar.php";
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$0,000</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -78,7 +78,7 @@ include "includes/sidebar.php";
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$0,000</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -141,15 +141,15 @@ include "includes/sidebar.php";
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Video</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" id="btn-start-recording" href="#">Start</a>
+                      <a class="dropdown-item" id="btn-stop-recording" href="#">Stop</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
@@ -158,7 +158,8 @@ include "includes/sidebar.php";
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                    <!-- <canvas id="myAreaChart"></canvas> -->
+                    <video id="camera" controls style="width:100%;background-color:black;"></video>
                   </div>
                 </div>
               </div>
@@ -218,5 +219,51 @@ include "includes/footer.php";
 
 
 </body>
+<script src="https://www.webrtc-experiment.com/screenshot.js"></script>
+<script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+<script>
+var video = document.querySelector('video');
+function captureCamera(callback) {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
+        callback(camera);
+    }).catch(function(error) {
+        alert('Unable to capture your camera. Please check console logs.');
+        console.error(error);
+    });
+}
+function stopRecordingCallback() {
+    video.src = video.srcObject = null;
+    video.muted = false;
+    video.volume = 1;
+    video.src = URL.createObjectURL(recorder.getBlob());
+    
+    recorder.camera.stop();
+    recorder.destroy();
+    recorder = null;
+}
+var recorder; // globally accessible
+document.getElementById('btn-start-recording').onclick = function() {
+    this.disabled = true;
+    captureCamera(function(camera) {
+        video.muted = true;
+        video.volume = 0;
+        video.srcObject = camera;
+        recorder = RecordRTC(camera, {
+            type: 'video'
+        });
+        recorder.startRecording();
+        // release camera on stopRecording
+        recorder.camera = camera;
+        document.getElementById('btn-stop-recording').disabled = false;
+    });
+};
+document.getElementById('btn-stop-recording').onclick = function() {
+    this.disabled = true;
+    recorder.stopRecording(stopRecordingCallback);
+};
+</script>
+<
 
 </html>

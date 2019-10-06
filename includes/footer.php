@@ -112,8 +112,15 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                                 <label>Offense</label>
 <select class="form-control" name="offence" >
   <option selected disabled>..Choose Offense Type..</option>
-                <option value="Attempting to corrupt Marshall on duty">Attempting to corrupt Marshall on duty</option>
-            <option value="Drinking & Driving">Drinking & Driving</option>
+  <?php $result = $db->prepare("SELECT * FROM offence ORDER BY id DESC");
+	$result->execute();
+	for($i=0; $row = $result->fetch(); $i++){?>
+
+    <option value="<?php echo $row['offence']; ?>"><?php echo $row['offence']; ?></option>
+
+    <?php } ?>
+            
+            <!-- <option value="Drinking & Driving">Drinking & Driving</option>
              <option value="Assaulting Road Marshall">Assaulting Road Marshall</option>
              <option value="Dangerous Driving">Dangerous Driving</option>
             <option value="Driver's License Violation">Driver's License Violation</option>
@@ -131,7 +138,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
             <option value="Speed Limit violation">Speed Limit violation</option>
             <option value="Under age driving">Under age driving</option>
             <option value="Making calls while driving">Making calls while driving</option>
-            <option value="Other offences and violation">Other offences and violation</option>
+            <option value="Other offences and violation">Other offences and violation</option> -->
 </select>
 </select>                                                 
 												</div>
@@ -169,6 +176,38 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="AddOffenceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add new offence</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form action="functions/addOffence.php" method="post">
+        <div class="modal-body">
+        <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Offence Discription</label>
+                                                <input type="text" name="offence" class="form-control" placeholder="Discription" value="<?php echo $row['offence']; ?>">
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+        
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button type="submit"class="btn btn-primary" href="addOffence.php">Add New</button>
+        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -384,7 +423,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,10));?>" read
   <script src="vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
+  <!-- <script src="js/demo/chart-area-demo.js"></script> -->
   <script src="js/demo/chart-pie-demo.js"></script>
 
 

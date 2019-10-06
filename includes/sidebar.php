@@ -1,10 +1,16 @@
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-      </a>
 
+        <?php 
+	$result = $db->prepare("SELECT * FROM site_settings WHERE id=1");
+	$result->execute();
+	for($i=0; $row = $result->fetch(); $i++){
+?>
+        <div class="sidebar-brand-text mx-3"> <?php echo $row['site_name']; ?><sup></sup></div>
+      </a>
+  <?php } ?>
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
@@ -22,7 +28,7 @@
       <div class="sidebar-heading">
         Interface
       </div>
-
+      <?php $position=$_SESSION['SESS_LAST_NAME'];?>
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -33,13 +39,16 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Offence Managment:</h6>
             <a class="collapse-item" href="#" data-toggle="modal" data-target="#reportModal">Report</a>
-            <a class="collapse-item" href="#">Add</a>
-            <a class="collapse-item" href="offences.php">View</a>
+         <?php  if($position=='admin') {?>
+            <a class="collapse-item" href="#"  data-toggle="modal" data-target="#AddOffenceModal">Add</a>
+        <?php  } ?>
+         <a class="collapse-item" href="offences.php">View</a>
           </div>
         </div>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
+      <?php  if($position=='admin') {?>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
@@ -54,7 +63,7 @@
           </div>
         </div>
       </li>
-
+      <?php  } ?>
       <!-- Divider -->
       <hr class="sidebar-divider">
 

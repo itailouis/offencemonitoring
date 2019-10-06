@@ -84,7 +84,7 @@ include "includes/sidebar.php";
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['officer_reporting']; ?></td>
 										<td><?php echo $row['address']; ?></td>
-										<td><a rel="facebox" title="Click to edit view details" href="offence-detail.php?id=<?php echo $row['id']; ?>"><i class="fa fa-eye  fa-lg text-success"></i> </a>
+										<td><a rel="facebox" title="Click to edit view details" href="offense_view.php?id=<?php echo $row['id']; ?>"><i class="fa fa-eye  fa-lg text-success"></i> </a>
 			<a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete the Offense"><i class="fa fa-trash fa-lg text-danger"></i></a>
 													</td>
                                         	
