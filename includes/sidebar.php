@@ -39,6 +39,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Offence Managment:</h6>
             <a class="collapse-item" href="#" data-toggle="modal" data-target="#reportModal">Report</a>
+            <a class="collapse-item" href="#" data-toggle="modal" data-target="#SearchModal">Track offence</a>
          <?php  if($position=='admin') {?>
             <a class="collapse-item" href="#"  data-toggle="modal" data-target="#AddOffenceModal">Add</a>
         <?php  } ?>

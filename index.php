@@ -47,8 +47,10 @@ include "includes/sidebar.php";
                                             <div>
                                                <?=App::message("success", "Your information was updated Successfully!")?>
                                             </div>
+
+
                                             <?php endif;?>
-            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+         <a href="#"  data-toggle="modal" data-target="#flagVihecleModal"  class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Flag Vihecle</a>
           </div>
 
           <!-- Content Row -->

@@ -211,6 +211,78 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
       </div>
     </div>
   </div>
+  
+
+  <div class="modal fade" id="flagVihecleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Track offence</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form action="functions/flagVihecle.php" method="post">
+        <div class="modal-body">
+        <div class="row">
+           <div class="col-md-12">
+               <div class="form-group">
+                  <label>Enter Plate Number</label>
+                  <input type="text" name="offence" class="form-control" placeholder="Enter Plate Number" value="<?php echo $row['offence']; ?>">
+               </div>
+
+               <div class="form-group">
+                  <label>Enter Reason / Discription </label>
+                  <textarea type="text" name="reason" class="form-control" placeholder="Reason / Discription "></textarea>
+               </div>
+            </div>
+         </div>
+        
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button type="submit"class="btn btn-danger" href="addFlag.php">Flag Vihecle</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="SearchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Track offence</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form action="TrackOffence.php" method="post">
+        <div class="modal-body">
+        <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Enter Plate Number or Lisense number </label>
+                                                <input type="text" name="offence" class="form-control" placeholder="Enter Plate Number or Lisense number" value="<?php echo $row['offence']; ?>">
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+        
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button type="submit"class="btn btn-primary" href="addOffence.php">Track</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
 
 
