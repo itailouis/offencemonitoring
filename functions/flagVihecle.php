@@ -1,7 +1,9 @@
 <?php
 include('../connect.php');
 //session_start();
-$offence = $_POST['offence'];
+$vihecle_no = $_POST['vihecle_no'];
+$flag_reason = $_POST['flag_reason'];
+$flag_status = $_POST['flag_status'];
 
 // query
 $sql = "INSERT INTO vihecle_flags (vihecle_no,flag_reason,flag_status) VALUES (:vihecle_no,:flag_reason, :flag_status)";

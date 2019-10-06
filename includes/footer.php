@@ -228,12 +228,12 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
            <div class="col-md-12">
                <div class="form-group">
                   <label>Enter Plate Number</label>
-                  <input type="text" name="offence" class="form-control" placeholder="Enter Plate Number" value="<?php echo $row['offence']; ?>">
+                  <input type="text" name="vihecle_no" class="form-control" placeholder="Enter Plate Number" value="<?php echo $row['offence']; ?>">
                </div>
 
                <div class="form-group">
                   <label>Enter Reason / Discription </label>
-                  <textarea type="text" name="reason" class="form-control" placeholder="Reason / Discription "></textarea>
+                  <textarea type="text" name="flag_reason" class="form-control" placeholder="Reason / Discription "></textarea>
                </div>
             </div>
          </div>
