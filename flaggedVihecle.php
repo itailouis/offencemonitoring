@@ -92,10 +92,7 @@ include "includes/sidebar.php";
                         <a href="#" class="btn btn-info btn-circle btn-sm"><i class="fas fa-info-circle"></i>
                   </a>
                     
-                    </td>
-                                        	
-                                        </tr>
-                                        <?php } ?>
+                    </td></tr><?php } ?>
                   </tbody>
                 </table>
               </div>
