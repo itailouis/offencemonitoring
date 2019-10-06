@@ -230,6 +230,10 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                   <label>Enter Plate Number</label>
                   <input type="text" name="vihecle_no" class="form-control"  required placeholder="Enter Plate Number" value="<?php echo $row['offence']; ?>">
                </div>
+               <div class="form-group">
+                  <label>Enter Plate Number</label>
+                  <input type="date" name="flagged_date" class="form-control"  required  >
+               </div>
 
                <div class="form-group">
                   <label>Enter Reason / Discription </label>

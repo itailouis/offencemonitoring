@@ -40,7 +40,7 @@ include "includes/sidebar.php";
         <div class="container-fluid">
    <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Offences</h1>
+            <h1 class="h3 mb-0 text-gray-800">Flagged Vihecles</h1>
          
 <a href="#"  data-toggle="modal" data-target="#flagVihecleModal"  class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Flag Vihecle</a>
 </div>
@@ -58,40 +58,41 @@ include "includes/sidebar.php";
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                    <th>Offence ID</th>
-                                    	<th>Offence</th>
-                                    	<th>Offender</th>
-                                    	<th>Reporter</th>
-                                    	<th>Address</th>
+                    <th>ID</th>
+                                    	<th>Plate Number</th>
+                                    	<th>Date</th>
+                                    	<th>Reason/Disc</th>
+                                    	
 										<th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                    <th>Offence ID</th>
-                                    	<th>Offence</th>
-                                    	<th>Offender</th>
-                                    	<th>Reporter</th>
-                                    	<th>Address</th>
+                    <th>ID</th>
+                                    	<th>Plate Number</th>
+                                    	<th>Date</th>
+                                    	<th>Reason/Disc</th>
 										<th>Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
                   <?php 
                  /// include('connect.php');
-	$result = $db->prepare("SELECT * FROM reported_offence ORDER BY id DESC");
+	$result = $db->prepare("SELECT * FROM vihecle_flags ORDER BY id DESC");
 	$result->execute();
 	for($i=0; $row = $result->fetch(); $i++){
 ?>
                                         <tr>
-										<td><?php echo $row['offence_id']; ?></td>
-                    <td><a title="Click to view details"  href="offense_view.php?id=<?php echo $row['id']; ?>"><?php echo $row['offence']; ?></a></td>
-                    <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $row['officer_reporting']; ?></td>
-										<td><?php echo $row['address']; ?></td>
-										<td><a rel="facebox" title="Click to edit view details" href="offense_view.php?id=<?php echo $row['id']; ?>"><i class="fa fa-eye  fa-lg text-success"></i> </a>
-			<a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete the Offense"><i class="fa fa-trash fa-lg text-danger"></i></a>
-													</td>
+										<td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['vihecle_no']; ?></td>
+                    <td><?php echo $row['flagged_date']; ?></td>
+                    <td><?php echo $row['flag_reason']; ?></td>
+					<td>
+                        <a href="#" class="btn btn-success btn-circle btn-sm"><i class="fas fa-check"></i></a>
+                        <a href="#" class="btn btn-info btn-circle btn-sm"><i class="fas fa-info-circle"></i>
+                  </a>
+                    
+                    </td>
                                         	
                                         </tr>
                                         <?php } ?>
