@@ -43,7 +43,8 @@
          <?php  if($position=='admin') {?>
             <a class="collapse-item" href="#"  data-toggle="modal" data-target="#AddOffenceModal">Add</a>
         <?php  } ?>
-         <a class="collapse-item" href="offences.php">View</a>
+         <a class="collapse-item" href="offences.php">View Offence</a>
+         <a class="collapse-item" href="flaggedVihecle.php">View Flagged Vihecles</a>
           </div>
         </div>
       </li>

@@ -3,7 +3,7 @@ include('../connect.php');
 //session_start();
 $vihecle_no = $_POST['vihecle_no'];
 $flag_reason = $_POST['flag_reason'];
-$flag_status = $_POST['flag_status'];
+$flag_status = "open";
 
 // query
 $sql = "INSERT INTO vihecle_flags (vihecle_no,flag_reason,flag_status) VALUES (:vihecle_no,:flag_reason, :flag_status)";
