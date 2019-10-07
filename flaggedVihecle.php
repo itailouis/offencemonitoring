@@ -87,9 +87,12 @@ include "includes/sidebar.php";
                     <td><?php echo $row['vihecle_no']; ?></td>
                     <td><?php echo $row['flagged_date']; ?></td>
                     <td><?php echo $row['flag_reason']; ?></td>
-					<td>
-                        <a href="#" class="btn btn-success btn-circle btn-sm"><i class="fas fa-check"></i></a>
-                        <a href="#" class="btn btn-info btn-circle btn-sm"><i class="fas fa-info-circle"></i>
+					          <td>
+                    <?php if($row['id']=="open"){?>
+                      <a href="#" data-target="#UnflagVihecleModal" data-id="<?php echo $row['id']; ?>" class="btn btn-success btn-circle btn-sm"><i class="fas fa-check"></i></a>
+                    <?php }else{ ?>
+                      <a href="#" data-target="#UnflagVihecleModal" data-id="<?php echo $row['id']; ?>"  class="btn btn-info btn-circle btn-sm"><i class="fas fa-info-circle"></i>
+                    <?php }?>
                   </a>
                     
                     </td></tr><?php } ?>

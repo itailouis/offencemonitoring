@@ -40,25 +40,42 @@
                   <p> Please fill in the field to report an Offence</p> -->
                   <form  action="save-reported.php" method="post">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Offense ID</label>
                                                 <input type="text" name="offence_id" class="form-control" placeholder="Offense ID" value="<?php 
 $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                      </div>
+                                   <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Vehicle Reg. No.</label>
                                                 <input type="text" name="vehicle_no" class="form-control" placeholder="Vehicle Reg. No." >
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Driver's License</label>
                                                 <input type="text" name="driver_license"  class="form-control" placeholder="Driver's License">
                                             </div>
+                                        </div> 
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Vehicle Reg. No. Confirm</label>
+                                                <input type="text" name="vehicle_no" class="form-control" placeholder="Vehicle Reg. No." >
+                                            </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Driver's License Confirm</label>
+                                                <input type="text" name="driver_license"  class="form-control" placeholder="Driver's License">
+                                            </div>
+                                        </div> 
                                     </div>
 
                                     <div class="row">
@@ -69,7 +86,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                             </div>
                                         </div>
                                      </div>
-
+                                    
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -283,6 +300,24 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
           <button type="submit"class="btn btn-primary" href="addOffence.php">Track</button>
         </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="UnflagVihecleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Are You Sure </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="logout.php">Yes Im Sure</a>
+        </div>
       </div>
     </div>
   </div>
