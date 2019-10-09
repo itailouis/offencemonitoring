@@ -52,13 +52,13 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Vehicle Reg. No.</label>
-                                                <input type="text" name="vehicle_no" class="form-control" placeholder="Vehicle Reg. No." >
+                                                <input type="text" name="vehicle_no" onkeyup="myoffence()" class="form-control" placeholder="Vehicle Reg. No." required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Driver's License</label>
-                                                <input type="text" name="driver_license"  class="form-control" placeholder="Driver's License">
+                                                <input type="text" name="driver_license"  class="form-control" placeholder="Driver's License" required>
                                             </div>
                                         </div> 
                                     </div>
@@ -67,13 +67,13 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Vehicle Reg. No. Confirm</label>
-                                                <input type="text" name="vehicle_no" class="form-control" placeholder="Vehicle Reg. No." >
+                                                <input type="text" name="vehicle_no_" class="form-control" placeholder="Vehicle Reg. No." required >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Driver's License Confirm</label>
-                                                <input type="text" name="driver_license"  class="form-control" placeholder="Driver's License">
+                                                <input type="text" name="driver_license"  class="form-control" placeholder="Driver's License" required>
                                             </div>
                                         </div> 
                                     </div>
@@ -82,7 +82,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Driver's Name</label>
-                                                <input type="text" name="name" class="form-control" placeholder="Driver's Name">
+                                                <input type="text" name="name" class="form-control" placeholder="Driver's Name" required>
                                             </div>
                                         </div>
                                      </div>
@@ -91,7 +91,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" name="address"  class="form-control" placeholder="Address of Incident" >
+                                                <input type="text" name="address"  class="form-control" placeholder="Address of Incident" required>
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Officer Reporting</label>
-                                                <input type="text" name="officer_reporting"  class="form-control" placeholder="Officer Name" value="" readonly>
+                                                <input type="text" name="officer_reporting"  class="form-control" placeholder="Officer Name" value="" readonly required>
                                             </div>
                                         </div>
   <?php // }
@@ -127,7 +127,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Offense</label>
-<select class="form-control" name="offence" >
+<select class="form-control" name="offence" required >
   <option selected disabled>..Choose Offense Type..</option>
   <?php $result = $db->prepare("SELECT * FROM offence ORDER BY id DESC");
 	$result->execute();
@@ -313,11 +313,15 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Are You Sure </div>
+        <form action="functions/UnflagVihecle.php" method="post">
+        <div class="modal-body">
+        <input type="hidden" name="bookId" id="bookId" value=""/>
+       Are You Sure you want to Unflag This Vihecle  </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="logout.php">Yes Im Sure</a>
+          <button type="submit" class="btn btn-primary"  >Yes Im Sure</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -544,3 +548,25 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,10));?>" read
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script>
+  $('#UnflagVihecleModal').on('show.bs.modal', function(e) {
+
+//get data-id attribute of the clicked element
+var bookId = $(e.relatedTarget).data('vihecle-id');
+
+//populate the textbox
+$(e.currentTarget).find('input[name="bookId"]').val(bookId);
+});
+
+function myoffence(){
+  // input = document.getElementById("vehicle_no");
+  //var input_value=input.value;
+
+
+//i//f(input_value.length>=4){
+ // alert("Stolen vihecle")
+//}
+}
+
+
+</script>

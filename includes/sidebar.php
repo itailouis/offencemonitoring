@@ -38,13 +38,13 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Offence Managment:</h6>
-            <a class="collapse-item" href="#" data-toggle="modal" data-target="#reportModal">Report</a>
+            <a class="collapse-item" href="#" data-toggle="modal" data-target="#reportModal">Report Offence</a>
             <a class="collapse-item" href="#" data-toggle="modal" data-target="#SearchModal">Track offence</a>
          <?php  if($position=='admin') {?>
-            <a class="collapse-item" href="#"  data-toggle="modal" data-target="#AddOffenceModal">Add</a>
+            <a class="collapse-item" href="#"  data-toggle="modal" data-target="#AddOffenceModal">Add new Offence<br>in System </a>
         <?php  } ?>
          <a class="collapse-item" href="offences.php">View Offence</a>
-         <a class="collapse-item" href="flaggedVihecle.php">View Flagged Vihecles</a>
+         <!--<a class="collapse-item" href="flaggedVihecle.php">View Flagged Vihecles</a>-->
           </div>
         </div>
       </li>
