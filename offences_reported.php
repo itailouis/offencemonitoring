@@ -59,35 +59,39 @@ include "includes/sidebar.php";
                   <thead>
                     <tr>
                     <th>Offence ID</th>
-                                    	<th>Summary</th>
-                                    	<th>Discrption</th>
-                                    	<th>Amount(Find to be PAID )</th>
-                                    	<!--<th>Action</th>-->
-									
+                                    	<th>Offence</th>
+                                    	<th>Offender</th>
+                                    	<th>Reporter</th>
+                                    	<th>Address</th>
+										<th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                     <th>Offence ID</th>
-                                    	<th>Summary</th>
-                                    	<th>Discrption</th>
-                                    	<th>Amount(Find to be PAID )</th>
+                                    	<th>Offence</th>
+                                    	<th>Offender</th>
+                                    	<th>Reporter</th>
+                                    	<th>Address</th>
+										<th>Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
                   <?php 
                  /// include('connect.php');
-	$result = $db->prepare("SELECT * FROM offence ORDER BY id DESC");
+	$result = $db->prepare("SELECT * FROM reported_offence ORDER BY id DESC");
 	$result->execute();
 	for($i=0; $row = $result->fetch(); $i++){
 ?>
                                         <tr>
-										<td><?php echo $row['id']; ?></td>
-                    <td><?php echo $row['offence']; ?></td>
-                    
-          <td><?php echo $row['discription']; ?></td>
-										<td><?php echo "$ ZWL".$row['fine']; ?></td>
-										
+										<td><?php echo $row['offence_id']; ?></td>
+                    <td><a title="Click to view details"  href="offense_view.php?id=<?php echo $row['id']; ?>"><?php echo $row['offence']; ?></a></td>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['officer_reporting']; ?></td>
+										<td><?php echo $row['address']; ?></td>
+										<td><a rel="facebox" title="Click to edit view details" href="offense_view.php?id=<?php echo $row['id']; ?>"><i class="fa fa-eye  fa-lg text-success"></i> </a>
+			<a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete the Offense"><i class="fa fa-trash fa-lg text-danger"></i></a>
+													</td>
                                         	
                                         </tr>
                                         <?php } ?>

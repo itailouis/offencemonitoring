@@ -13,6 +13,7 @@
     <!-- End of Content Wrapper -->
 
   </div>
+  
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -38,7 +39,7 @@
                 </div>
                 <div class="card-body">
                   <p> Please fill in the field to report an Offence</p> -->
-                  <form  action="save-reported.php" method="post">
+                  <form  id="reportOffence" action="save-reported.php" method="post">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -52,7 +53,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Vehicle Reg. No.</label>
-                                                <input type="text" name="vehicle_no" onkeyup="myoffence()" class="form-control" placeholder="Vehicle Reg. No." required>
+                                                <input type="text" id="report_vehicle_no"   name="vehicle_no"  class="form-control" placeholder="Vehicle Reg. No." required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -63,20 +64,16 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                         </div> 
                                     </div>
 
+                                
+
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Vehicle Reg. No. Confirm</label>
-                                                <input type="text" name="vehicle_no_" class="form-control" placeholder="Vehicle Reg. No." required >
+                                                <label>Driver's Cell Number</label>
+                                                <input type="text" name="cell" class="form-control" placeholder="Driver's Cell Number" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Driver's License Confirm</label>
-                                                <input type="text" name="driver_license"  class="form-control" placeholder="Driver's License" required>
-                                            </div>
-                                        </div> 
-                                    </div>
+                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -86,12 +83,31 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                             </div>
                                         </div>
                                      </div>
+
+
                                     
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Address</label>
+                                                <label>Incedent Location</label>
                                                 <input type="text" name="address"  class="form-control" placeholder="Address of Incident" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Region</label>
+                                                <select  name="region"  class="form-control" placeholder="Address of Incident" required>
+                                                <?php
+	                                                $regions = $db->prepare("SELECT * FROM para_regions ");
+                                  $regions->execute();
+                                              //var_dump($regions);
+                                              
+
+                                              for($i=0; $row = $regions->fetch(); $i++){?>
+                                                       
+                                                         <option value="<?php echo $row['region_name'] ?>"><?php echo $row['region_name'] ?></option>
+                                               <?php  } ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +181,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
                                     <div class="clearfix"></div>
                                     <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <button  type="submit" class="btn btn-primary" >Report Offence</button>
+          <button id="report"  type="submit" class="btn btn-primary" >Report Offence</button>
         </div>
                                 </form>
                 
@@ -211,8 +227,16 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
         <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
+                                                <label>Offence Summury</label>
+                                                <input type="text" name="offence" class="form-control" placeholder="Summary " required value="<?php echo $row['offence']; ?>">
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Offence Discription</label>
-                                                <input type="text" name="offence" class="form-control" placeholder="Discription" value="<?php echo $row['offence']; ?>">
+                                                <input type="text" name="discription" class="form-control" placeholder="Discription" required value="<?php echo $row['offence']; ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Find Amount </label>
+                                                <input type="number" name="fine" class="form-control" placeholder="amount To be Charged " required value="<?php echo $row['offence']; ?>">
                                             </div>
                                         </div>
                                       
@@ -235,6 +259,7 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Track offence</h5>
+          
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -243,18 +268,28 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
         <div class="modal-body">
         <div class="row">
            <div class="col-md-12">
+           <input type="text" name="offence_id"  hidden class="form-control" placeholder="Offense ID" value="<?php 
+$prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" readonly>
+
+<input type="text" name="officer_reporting"  hidden class="form-control" placeholder="Offense ID" value="<?php 
+$prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" readonly>
                <div class="form-group">
                   <label>Enter Plate Number</label>
-                  <input type="text" name="vihecle_no" class="form-control"  required placeholder="Enter Plate Number" value="<?php echo $row['offence']; ?>">
+                  <input type="text" id="vehicle_no_2" name="vehicle_no" class="form-control" required placeholder="Enter Plate Number" value="<?php echo $row['offence']; ?>">
+               </div>
+
+               <div class="form-group">
+                  <label>Incident Location</label>
+                  <input type="text" name="address" class="form-control"  required placeholder="Incident Location" value="<?php echo $row['offence']; ?>">
                </div>
                <div class="form-group">
-                  <label>Enter Plate Number</label>
+                  <label>Insident Date</label>
                   <input type="date" name="flagged_date" class="form-control"  required  >
                </div>
 
                <div class="form-group">
-                  <label>Enter Reason / Discription </label>
-                  <textarea type="text" name="flag_reason" class="form-control" placeholder="Reason / Discription " required></textarea>
+                  <label>Enter Vihecle Discription </label>
+                  <textarea type="text" name="flag_reason" class="form-control" placeholder=" Vihecle Discription " required></textarea>
                </div>
             </div>
          </div>
@@ -309,6 +344,28 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" reado
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form action="functions/UnflagVihecle.php" method="post">
+        <div class="modal-body">
+        <input type="hidden" name="bookId" id="bookId" value=""/>
+       Are You Sure you want to Unflag This Vihecle  </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary"  >Yes Im Sure</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="PayModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Payment?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -522,6 +579,87 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,10));?>" read
     </div>
   </div>
 
+  <div class="modal fade" id="validPlate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>The Number You Have Enter Doent Exist </p>
+        <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+      Its An Internation Plate Instade 
+      </label>
+    </div>
+        
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Payment Proccess</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form action="functions/PayOffence.php" method="post">
+        <div class="modal-body">
+        <div class="row">
+        <input type="hidden" name="offence_id" id="offence_id" value="" />
+     
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Amount</label>
+                                                <input type="number" name="amount" class="form-control" placeholder="amount" value="<?php echo $row['offence']; ?>" required>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Cell Number </label>
+                                                <input type="number" name="pay_phone" class="form-control" placeholder="Enter Cell Number" value="<?php echo $row['offence']; ?>" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" name="pay_phone" class="form-control" placeholder="Enter Email" value="<?php echo $row['offence']; ?>" required>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+        
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button type="submit"class="btn btn-primary" >Pay now</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
 
   <!-- Bootstrap core JavaScript-->
@@ -538,8 +676,9 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,10));?>" read
   <script src="vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <!-- <script src="js/demo/chart-area-demo.js"></script> -->
+ <script src="js/demo/chart-area-demo.js"></script> 
   <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="js/demo/chart-bar-demo.js"></script>
 
 
   <!-- Page level plugins -->
@@ -557,16 +696,64 @@ var bookId = $(e.relatedTarget).data('vihecle-id');
 //populate the textbox
 $(e.currentTarget).find('input[name="bookId"]').val(bookId);
 });
+/* function lookup(){
+  alert("Stolen vihecle")
 
+}
 function myoffence(){
   // input = document.getElementById("vehicle_no");
   //var input_value=input.value;
 
 
 //i//f(input_value.length>=4){
- // alert("Stolen vihecle")
+ 
 //}
-}
+} */
+
+
+
+
+
+$('#payModal').on('show.bs.modal', function(e) {
+
+//get data-id attribute of the clicked element
+var bookId = $(e.relatedTarget).data('id');
+
+
+
+//populate the textbox
+$(e.currentTarget).find('input[name="offence_id"]').val(bookId);
+});
+ 
+$('#reportOffence').on('submit', function() {
+
+  var report_vehicle_no = $('#report_vehicle_no').val().trim();
+ 
+ 
+ $.ajax({
+    
+     url: 'functions/validatePlate.php',
+     data: {
+      report_vehicle_no: report_vehicle_no
+     },
+     success: function(returnData){
+        console.log(returnData);
+         var results = JSON.parse(returnData);
+        
+         if(results.length == 0 || results==false){
+          $('#validPlate').modal({show: true});
+          return false;  
+            //$('#search_results').html('No employees with that name were found!');
+         }else{
+          return true; 
+         }
+         
+     }
+     
+ });
+ 
+
+});
 
 
 </script>

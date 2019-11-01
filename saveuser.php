@@ -4,7 +4,7 @@ include('connect.php');
 $a = $_POST['user_id'];
 $b = $_POST['name'];
 $c = $_POST['username'];
-$d = $_POST['pass'];
+$d = md5($_POST['pass']);
 $e = $_POST['email'];
 $f = $_POST['address'];
 $g = $_POST['position'];

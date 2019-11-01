@@ -60,8 +60,8 @@ include "includes/sidebar.php";
                     <tr>
                     <th>Offence ID</th>
                                     	<th>Summary</th>
-                                    	<th>Discrption</th>
-                                    	<th>Amount(Find to be PAID )</th>
+                                    	<th>Number Plate</th>
+                                    	<th>Payment Status</th>
                                     	<!--<th>Action</th>-->
 									
                     </tr>
@@ -70,14 +70,22 @@ include "includes/sidebar.php";
                     <tr>
                     <th>Offence ID</th>
                                     	<th>Summary</th>
-                                    	<th>Discrption</th>
-                                    	<th>Amount(Find to be PAID )</th>
+                                    	<th>Number Plate</th>
+                                    	<th>Payment Status</th>
                     </tr>
                   </tfoot>
                   <tbody>
                   <?php 
                  /// include('connect.php');
-	$result = $db->prepare("SELECT * FROM offence ORDER BY id DESC");
+
+                 if(isset($_GET['status'])){
+                     $status= $_GET['status'];
+
+                    $result = $db->prepare("SELECT * FROM reported_offence where status='$status' ORDER BY id DESC");
+                 }else{
+                     $result = $db->prepare("SELECT * FROM reported_offence ORDER BY id DESC");
+                 }
+	
 	$result->execute();
 	for($i=0; $row = $result->fetch(); $i++){
 ?>
@@ -85,12 +93,19 @@ include "includes/sidebar.php";
 										<td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['offence']; ?></td>
                     
-          <td><?php echo $row['discription']; ?></td>
-										<td><?php echo "$ ZWL".$row['fine']; ?></td>
+          <td><?php echo $row['vehicle_no']; ?></td>
+                    <td><?php if ($row['status']=="UNPAID") {echo "<a href='' data-toggle='modal' data-id='". $row['id']."'   data-target='#payModal'><font color='red'>".$row['status']."</font></a>";
+                         }else{
+                          echo "<font color='green'>".$row['status']."</font>";
+                         }
+                         
+                         ?></td>
 										
                                         	
                                         </tr>
-                                        <?php } ?>
+                                        <?php } 
+                                        
+                                        ?>
                   </tbody>
                 </table>
               </div>

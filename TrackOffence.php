@@ -41,10 +41,10 @@ include "includes/sidebar.php";
         <!-- Begin Page Content -->
         <div class="container-fluid">
         
-       <?php $value = $_POST['offence']; ?>
+       <?php $value = @$_POST['offence']; ?>
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Users</h1>
+            <h1 class="h3 mb-0 text-gray-800">Offences</h1>
          
 <a href="#"  data-toggle="modal" data-target="#flagVihecleModal"  class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Flag Vihecle</a>
 </div>
@@ -63,9 +63,9 @@ include "includes/sidebar.php";
                                     	<th>Offence</th>
                                     	<th>Offender</th>
                                       <th>Vihicle</th>
-                                      <th>Reporter</th>
+                                    
                                       
-                                    	<th>Address</th><th>Status</th>
+                                    	<th>Address</th>
 										<th>Action</th>
                     </tr>
                   </thead>
@@ -75,10 +75,10 @@ include "includes/sidebar.php";
                                     	<th>Offence</th>
                                     	<th>Offender</th>
                                       <th>Vihicle</th>
-                                      <th>Reporter</th>
                                       
-                                    	<th>Address</th><th>Status</th>
-										<th>Action</th>
+                                      
+                                    	<th>Address</th>
+										<th>Payment Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -94,15 +94,17 @@ include "includes/sidebar.php";
                                     <td><a title="Click to view details"  href="offense_view.php?id=<?php echo $row['id']; ?>"><?php echo $row['offence']; ?></a></td>
                                     <td><?php echo $row['name']; ?></td>
                                     <td><?php echo $row['vehicle_no']; ?></td>
-                                    <td><?php echo $row['officer_reporting']; ?></td>
+                                   
                                     
                                     <td><?php echo $row['address']; ?></td>
-                                    <td>open</td>
+                                   
                                     <td>
-                                    <a href='#' data-toggle='modal' data-target='#payModal' class='btn btn-primary btn-icon-split btn-sm'><span class='icon text-white-50'><i class='fas fa-flag'></i></span><span class='text'>Pay the bill</span></a>
-                                   <!--  <a rel="facebox" title="Click to edit view details" href="offense_view.php?id=<?php echo $row['id']; ?>"><i class="fa fa-eye  fa-lg text-success"></i> </a>
-                      <a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete the Offense"><i class="fa fa-trash fa-lg text-danger"></i></a> -->
-                                          </td>
+                                    <?php if ($row['status']=="UNPAID") {?>
+                                    <a href='#' data-toggle='modal' data-id= '<?php echo $row['id']?>' data-target='#payModal' class='btn btn-danger btn-icon-split btn-sm'><span class='icon text-white-50'><i class='fas fa-flag'></i></span><span class='text'>Bill Payment</span></a>
+                                    
+                                    <?php }else{?>
+                                   <a href='#' class='btn btn-primary btn-icon-split btn-sm'><span class='icon text-white-50'><i class='fas fa-flag'></i></span><span class='text'>Bill Paid</span></a>
+                                   <?php }?></td>
                                                           
                                                         </tr>
                                                         <?php } ?>

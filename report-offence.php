@@ -350,7 +350,11 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Offense ID</label>
+                                                 
                                                 <input type="text" name="offence_id" class="form-control" placeholder="Offense ID" value="<?php 
+$prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" readonly>
+
+ <input type="text" name="officer_reporting" class="form-control" placeholder="Offense ID" value="<?php 
 $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,6));?>" readonly>
                                             </div>
                                         </div>

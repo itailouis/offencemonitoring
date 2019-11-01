@@ -4,6 +4,9 @@
 <?php 
 
 include "includes/header.php";
+if(!isset($_SESSION)){
+  header("location:./login.php?failed=true");
+}
       ?>
 
 <body id="page-top">
@@ -50,6 +53,7 @@ include "includes/sidebar.php";
 
 
                                             <?php endif;?>
+                                            <a class="collapse-item d-none d-sm-inline-block btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#reportModal">Report Offence</a>
          <a href="#"  data-toggle="modal" data-target="#flagVihecleModal"  class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Flag Vihecle</a>
           </div>
 
@@ -57,6 +61,7 @@ include "includes/sidebar.php";
           <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
+            <?php if(false){ ?>
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
@@ -131,9 +136,9 @@ include "includes/sidebar.php";
                   </div>
                 </div>
               </div>
-            </div>
+            </div> <?php }?>
           </div>
-
+           
           <!-- Content Row -->
 
           <div class="row">
@@ -143,7 +148,7 @@ include "includes/sidebar.php";
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Video</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Payment</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -153,15 +158,18 @@ include "includes/sidebar.php";
                       <a class="dropdown-item" id="btn-start-recording" href="#">Start</a>
                       <a class="dropdown-item" id="btn-stop-recording" href="#">Stop</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      <a class="dropdown-item" href="#">Something  </a>
                     </div>
                   </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <!-- <canvas id="myAreaChart"></canvas> -->
-                    <video id="camera" controls style="width:100%;background-color:black;"></video>
+                  <!--<div class="chart-area">
+                    <canvas id="myAreaChart"></canvas> 
+                      <video  hidden id="camera" controls style="width:100%;background-color:black;"></video>
+                  </div>-->
+                  <div class="chart-bar">
+                    <canvas id="myBarChart"></canvas>
                   </div>
                 </div>
               </div>
@@ -189,9 +197,9 @@ include "includes/sidebar.php";
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
+                    <canvas id="myPieChartd"></canvas>
                   </div>
-                  <div class="mt-4 text-center small">
+                 <!-- <div class="mt-4 text-center small">
                     <span class="mr-2">
                       <i class="fas fa-circle text-primary"></i> Direct
                     </span>
@@ -201,7 +209,7 @@ include "includes/sidebar.php";
                     <span class="mr-2">
                       <i class="fas fa-circle text-info"></i> Referral
                     </span>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>
