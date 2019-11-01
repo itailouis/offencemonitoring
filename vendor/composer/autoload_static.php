@@ -14,6 +14,7 @@ class ComposerStaticInit31294e57f6f6128ac2b9c9eb49a65c75
         'P' => 
         array (
             'Paynow\\' => 7,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
@@ -21,6 +22,10 @@ class ComposerStaticInit31294e57f6f6128ac2b9c9eb49a65c75
         'Paynow\\' => 
         array (
             0 => __DIR__ . '/..' . '/paynow/php-sdk/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 
